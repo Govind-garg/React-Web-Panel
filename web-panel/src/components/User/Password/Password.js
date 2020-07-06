@@ -46,6 +46,7 @@ class Password extends Component {
 
     if (Object.keys(errors).length === 0) {
       alert(`Your New Password is ${data.password}`);
+      localStorage.setItem('pass',JSON.stringify(data.password))
 
       this.setState(this.getInitialState());
     } else {

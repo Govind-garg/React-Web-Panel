@@ -49,17 +49,33 @@ class Login extends Component {
     const { data } = this.state;
 
     const errors = this.validate();
+    const newPass = JSON.parse(localStorage.getItem("pass"))
 
     if (Object.keys(errors).length === 0) {
-      if (data.firstName == "root" && data.password == "root") {
-        localStorage.setItem("login", JSON.stringify(data));
-        alert("SuccessFully Logged In");
-        this.props.history.push("/");
-      } else {
-        alert("User name password incorrect.");
+      
+      if(newPass){
+      if ((data.firstName == "root" && data.password == newPass )) {
+            localStorage.setItem("login", JSON.stringify(data));
+            alert("SuccessFully Logged In");
+            this.props.history.push("/");
+          }
+          else {
+            alert("You are using old password, Please enter new password.");
+          }
+        } 
+        else if(!newPass){
+         if((data.firstName == "root" && data.password == "root")){
+          localStorage.setItem("login", JSON.stringify(data));
+          alert("SuccessFully Logged In");
+          this.props.history.push("/");
+        }
+        else {
+          alert("User name password incorrect.");
+        }
       }
-
+     
       this.setState(this.getInitialState());
+
     } else {
       this.setState({ errors });
     }
